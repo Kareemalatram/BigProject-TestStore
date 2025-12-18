@@ -53,7 +53,6 @@ public class MyPage extends MyDatabase {
 		Email.sendKeys(TheEmail);
 		SignupBtn.click();
 		
-		
 		WebElement mrRadio = driver.findElement(By.id("id_gender1"));  
 		WebElement mrsRadio = driver.findElement(By.id("id_gender2")); 
 		
@@ -131,7 +130,7 @@ public class MyPage extends MyDatabase {
 		
 	}
 	
-	@Test(priority = 2 ,enabled =false)
+	@Test(priority = 2 , enabled = true)
 	
 	public void MyLogOutTest() throws InterruptedException {
 		
@@ -142,7 +141,7 @@ public class MyPage extends MyDatabase {
 	}
 	
 	
-	@Test(priority = 3 , enabled = false)
+	@Test(priority = 3 , enabled = true)
 	
 	public void MyLogin() {
 	
@@ -180,7 +179,9 @@ public class MyPage extends MyDatabase {
 	    	
 	    	driver.findElement(By.linkText("Proceed To Checkout")).click();
 	    	
-	    	driver.findElement(By.name("message")).sendKeys("Hi, I am new client here please give me a good packaging");
+	    	WebElement DescriptionMsg = driver.findElement(By.name("message"));
+	    	
+	    	DescriptionMsg.sendKeys("Hi , I am New Customer Here!.. Please Give Me A Good Packaging!");
 	    	
 	    	Thread.sleep(3000);
 	    	
@@ -192,11 +193,11 @@ public class MyPage extends MyDatabase {
 	
 	@Test(priority = 5 , enabled= true)
 	
-	public void PaymentProcess() {
+	public void PaymentProcess() throws InterruptedException {
 		
 		//WebElement
 		
-		WebElement nameOnCard = driver.findElement(By.name("name_on_card"));
+		WebElement nameOnCard = driver.findElement(By.cssSelector("input[name='name_on_card']"));
 		WebElement CardNumber = driver.findElement(By.name("card_number"));
 		WebElement CvcCode = driver.findElement(By.name("cvc"));
 		WebElement ExpirationMo = driver.findElement(By.name("expiry_month"));
@@ -215,6 +216,12 @@ public class MyPage extends MyDatabase {
 		String ActualMsgForPaymentSucess = "Congratulations! Your order has been confirmed!";
 		
 		Assert.assertEquals(ActualMsgForPaymentSucess, ExceptedTestForPaymentSucess);
+		
+		
+		WebElement DownloadInvoice = driver.findElement(By.linkText("Download Invoice"));
+		DownloadInvoice.click();
+	
+		Thread.sleep(2000);
 		
 		driver.findElement(By.linkText("Continue")).click();
 	}
